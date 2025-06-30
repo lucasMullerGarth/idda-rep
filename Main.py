@@ -7,6 +7,7 @@ from pathlib import Path
 import pandas as pd
 import time
 import os
+import matplotlib.pyplot as plt
 
 def baixa_arquivos():
     # Inicia o navegador
@@ -57,8 +58,6 @@ if arquivo.exists():
 else:
     print("⬇️  Arquivo não encontrado, iniciando download...")
     baixa_arquivos()
-
-import pandas as pd
 
 def filtrar_ods(cidades_rs, numero_ods):
 
@@ -111,5 +110,26 @@ def main():
             print(santa_cruz)
     else:
         print(f"Não foram encontrados dados para a ODS {numero_ods}") 
+
+    ods_grafico = ods_escolhida.head(10)
+    tail_grafico = ods_escolhida.tail(10)
+    ods_grafico = pd.concat([ods_grafico, tail_grafico], ignore_index=True)
+
+    existe = 'Santa Cruz do Sul' in ods_grafico.values
+
+    if existe is False:    
+        ods_grafico = pd.concat([ods_grafico, santa_cruz], ignore_index=True)
+    
+    ods_grafico = ods_grafico.sort_values(by=f'Goal {numero_ods} Score', ascending=False)
+
+    ods_grafico.plot(x='MUNICIPIO', y=[f'Goal {numero_ods} Score'], kind='bar', figsize=(10, 6), color=['#1f77b4', '#ff7f0e'])
+
+    plt.title('Pontuação da ODS')
+    plt.ylabel('Puntuação')
+    plt.xlabel('Cidade')
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+    plt.show()
 
 main()
