@@ -1,4 +1,7 @@
+import os
 import tkinter as tk
+from tkinter import PhotoImage
+
 
 #Botão padrão
 
@@ -14,7 +17,6 @@ def criar_botao(janela, texto, comando):
         bd = 10,
         command=comando
     )
-
 
 #Tela ODS
    
@@ -49,22 +51,22 @@ def Tela_inicial():
 
     tela_inicial = tk.Tk()
     tela_inicial.title("IDDA")
-    tela_inicial.geometry("800x600")
-
+    tela_inicial.geometry("800x700")
     tela_inicial.configure(bg = "#363636")
 
     def abrir_ods():
 
-        tela_inicial.destroy()
+        tela_inicial.withdraw()
         ods() 
 
+    # Logo da empresa
+    caminho_base = os.path.dirname(__file__)
+    caminho_logo = os.path.join(caminho_base, "IDDAlogo-com-texto.png")
 
-    titulo = tk.Label(tela_inicial, 
-    text= "IDDA",
-    font=("Arial", 30,"bold"),
-    bg="#363636")
-    #origem (0,0)canto superior esquerdo
-    titulo.pack(pady= 80)
+    logo = tk.PhotoImage(file=caminho_logo)
+    imagem = tk.Label(tela_inicial, image=logo, bg="#363636")
+    imagem.image = logo
+    imagem.pack(pady=60)
 
     Biniciar = criar_botao(tela_inicial,"Iniciar",abrir_ods).pack(pady=30)
 
