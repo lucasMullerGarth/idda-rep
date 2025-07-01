@@ -75,6 +75,7 @@ def main():
     nome_arquivo = 'Base_de_Dados_IDSC-BR_2024.xlsx'
     
     df = pd.read_excel(nome_arquivo, sheet_name='IDSC-BR 2024')
+    livro_df = pd.read_excel(nome_arquivo, sheet_name='Livro de Códigos')
 
     cidades_rs = df.loc[df['SIGLA_UF'] == 'RS'].copy()
     cidades_rs.reset_index(drop=True, inplace=True)
@@ -122,6 +123,7 @@ def main():
     
     ods_grafico = ods_grafico.sort_values(by=f'Goal {numero_ods} Score', ascending=False)
 
+    
     ods_grafico.plot(x='MUNICIPIO', y=[f'Goal {numero_ods} Score'], kind='bar', figsize=(10, 6), color=['#1f77b4', '#ff7f0e'])
 
     plt.title('Pontuação da ODS')
@@ -131,5 +133,18 @@ def main():
     plt.legend(loc='upper right')
     plt.tight_layout()
     plt.show()
+    #time.sleep(5)
+    #plt.close()
+
+    municipios = ods_escolhida['MUNICIPIO']
+    colunas = ods_escolhida.filter(like='Normalizado')
+    normalizados = pd.concat([municipios, colunas], axis=1)
+
+    print(normalizados)
+    livro_codigos = livro_df[livro_df['ODS'] == numero_ods]
+
+    #with pd.ExcelWriter("DataFrame da ODS.xlsx") as writer:
+        #livro_codigos.to_excel(writer, sheet_name= "Livro Códigos.xlsx", index=False)
+        #ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_2024.xlsx", index=False)
 
 main()
