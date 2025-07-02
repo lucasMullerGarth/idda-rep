@@ -122,7 +122,6 @@ def main():
         ods_grafico = pd.concat([ods_grafico, santa_cruz], ignore_index=True)
     
     ods_grafico = ods_grafico.sort_values(by=f'Goal {numero_ods} Score', ascending=False)
-
     
     ods_grafico.plot(x='MUNICIPIO', y=[f'Goal {numero_ods} Score'], kind='bar', figsize=(10, 6), color=['#1f77b4', '#ff7f0e'])
 
@@ -140,7 +139,39 @@ def main():
     colunas = ods_escolhida.filter(like='Normalizado')
     normalizados = pd.concat([municipios, colunas], axis=1)
 
-    print(normalizados)
+    coluna_normalizados = normalizados.columns.tolist()
+    tamanho_normalizados = len(normalizados)
+    i=1
+
+    while i < tamanho_normalizados:
+        titulo = coluna_normalizados[i]
+
+        normalizados = normalizados.sort_values(by=titulo, ascending=False)  
+
+        head_normalizados = normalizados.head(10)
+        tail_normalizados = normalizados.tail(10)
+        normalizados_grafico = pd.concat([head_normalizados, tail_normalizados], ignore_index=True)
+
+        santa_cruz_normalizados = normalizados[normalizados['MUNICIPIO'] == 'Santa Cruz do Sul']
+        
+        existe_normalizados = 'Santa Cruz do Sul' in normalizados_grafico.values
+
+        if existe_normalizados is False:    
+           normalizados_grafico = pd.concat([normalizados_grafico, santa_cruz_normalizados], ignore_index=False)
+
+        normalizados_grafico = normalizados_grafico.sort_values(by=titulo, ascending=False) 
+
+        normalizados_grafico.plot(x='MUNICIPIO', y=titulo, kind='bar', figsize=(10, 6), color=['#1f77b4', '#ff7f0e'])
+
+        plt.title('Pontuação do índice')
+        plt.ylabel('Puntuação')
+        plt.xlabel('Cidade')
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+        plt.legend(loc='upper right')
+        plt.tight_layout()
+        plt.show()
+        i+=1
+        
     livro_codigos = livro_df[livro_df['ODS'] == numero_ods]
 
     #with pd.ExcelWriter("DataFrame da ODS.xlsx") as writer:
