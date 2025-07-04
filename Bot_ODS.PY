@@ -8,7 +8,7 @@ from pathlib import Path
 
 class Bot_ODS():
      
-    def baixa_arquivos(self, IP):
+    def baixa_arquivos(self, IP, nome_do_arquivo):
         # Inicia o navegador
         navegador = webdriver.Chrome()
         navegador.get('https://idsc.cidadessustentaveis.org.br')
@@ -48,7 +48,7 @@ class Bot_ODS():
         # Aguarda o download
         time.sleep(10)
     
-    def verifica_arquivos(self, IP):
+    def verifica_arquivos(self, IP, nome_do_arquivo):
         pasta = Path.home() / "Downloads"
         arquivo = pasta / "Base_de_Dados_IDSC-BR_2024.xlsx"
 
@@ -58,7 +58,7 @@ class Bot_ODS():
         else:
             print("⬇️  Arquivo não encontrado, iniciando download...")
             baixa_arquivos(IP)
-            return True
+            return False 
     
     
     

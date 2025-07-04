@@ -9,4 +9,4 @@ if __name__ == "__main__":
         print("A biblioteca 'selenium' não está instalada. Rode: pip install -r requirements.txt")
         exit()
         
-    
+   
