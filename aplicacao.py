@@ -1,6 +1,7 @@
 import tkinter as tk
-from Tela_inicial import TelaInicial
-from Tela_ods import TelaODS
+from telas.Tela_inicial import TelaInicial
+from telas.Tela_ods import TelaODS
+from telas.Tela_ano import TelaAno
 
 # Classe principal da aplicação
 class Aplicacao(tk.Tk):
@@ -13,8 +14,8 @@ class Aplicacao(tk.Tk):
         # Dicionário de telas (frames)
         self.telas = {}
 
-        for Tela in (TelaInicial, TelaODS):
-            frame = Tela(self)
+        for Tela in (TelaInicial, TelaODS, TelaAno):
+            frame = Tela(self, self)
             self.telas[Tela.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
