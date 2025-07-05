@@ -32,7 +32,7 @@ class TelaODS(TelaBase):
         for i, nome in enumerate(self.ods_nomes):
             linha = i % 9 + 1
             coluna = 1 if i < 9 else 2
-            botao = self.criar_botao(nome, lambda n=nome: self.selecionar_ods(n))
+            botao = self.criar_botao(nome, lambda n=i: self.selecionar_ods(n))
             botao.grid(row=linha, column=coluna, padx=20, pady=10)
 
     def selecionar_ods(self, nome):

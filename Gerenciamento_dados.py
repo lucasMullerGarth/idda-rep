@@ -17,7 +17,7 @@ class GerenciamentoDados():
         return cidades_rs[[municipio, coluna_score] + list(colunas_ods)]    
 
     @staticmethod
-    def main():
+    def main(numero_ods):
         nome_arquivo = 'Base_de_Dados_IDSC-BR_2024.xlsx'
         
         df = pd.read_excel(nome_arquivo, sheet_name='IDSC-BR 2024')
@@ -33,15 +33,7 @@ class GerenciamentoDados():
 
         cidades_rs['MUNICIPIO'] = cidades_rs['MUNICIPIO'].str.strip()
 
-        try:
-            numero_ods = int(input('Digite o número da ODS (1-17): '))
-            if not 1 <= numero_ods <= 17:
-                print("Número da ODS deve estar entre 1 e 17")
-                return
-        except ValueError:
-            print("Por favor, digite um número válido.")
-            return
-
+        
         ods_escolhida = GerenciamentoDados.filtrar_ods(cidades_rs, numero_ods)
         
         ods_escolhida = ods_escolhida.sort_values(by=f'Goal {numero_ods} Score', ascending=False).reset_index(drop=True)
@@ -116,8 +108,12 @@ class GerenciamentoDados():
             plt.show()
             i+=1
             
-        livro_codigos = livro_df[livro_df['ODS'] == numero_ods]
+        
 
         #with pd.ExcelWriter("DataFrame da ODS.xlsx") as writer:
             #livro_codigos.to_excel(writer, sheet_name= "Livro Códigos.xlsx", index=False)
             #ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_2024.xlsx", index=False)
+
+
+    
+
