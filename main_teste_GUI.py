@@ -10,6 +10,3 @@ if __name__ == "__main__":
     
     app = Aplicacao()
     app.mainloop()
-    
-        
-   
