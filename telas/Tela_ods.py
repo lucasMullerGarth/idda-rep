@@ -31,12 +31,13 @@ class TelaODS(TelaBase):
 
     def criar_botoes(self):
         for i, nome in enumerate(self.ods_nomes):
+            
             linha = i % 9 + 1
             coluna = 1 if i < 9 else 2
-            botao = self.criar_botao(nome, lambda n=i: self.selecionar_ods(n+1))
+            botao = self.criar_botao(nome, lambda ods_num=i+1: self.selecionar_ods(ods_num))
             botao.grid(row=linha, column=coluna, padx=20, pady=10)
 
     def selecionar_ods(self, ODS):
         print(f"ODS selecionado: {ODS}")
-        GerenciamentoDado = GerenciamentoDado()
-        GerenciamentoDado.Criar_Graficos(ODS)
+        Gerenciamento = GerenciamentoDados()
+        Gerenciamento.Criar_Graficos(ODS)

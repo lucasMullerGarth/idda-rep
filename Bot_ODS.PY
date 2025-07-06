@@ -40,8 +40,8 @@ class Bot_ODS():
         wait.until(EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='Confirmar']]"))).click()
 
         # Aguarda o download
-        time.sleep(1)
-        navegador.close
+        time.sleep(10)
+        navegador.quit()
     
     
     def verifica_arquivos(self, IP, nome_do_arquivo):
