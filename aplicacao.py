@@ -11,6 +11,7 @@ class Aplicacao(tk.Tk):
         self.title("IDDA")
         self.geometry("800x605")
         self.configure(bg="#363636")
+        self.arquivo_selecionado = ""
 
         # Dicionário de telas (frames)
         self.telas = {}

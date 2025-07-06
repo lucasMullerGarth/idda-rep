@@ -18,7 +18,7 @@ class GerenciamentoDados():
         return cidades_rs[[municipio, coluna_score] + list(colunas_ods)]    
 
     @staticmethod
-    def Criar_Graficos(numero_ods):
+    def Criar_Graficos(numero_ods, ano):
 
         pasta = Path.home() / "Downloads"
         nome_arquivo = pasta / "Base_de_Dados_IDSC-BR_2024.xlsx"

@@ -27,16 +27,18 @@ class TelaODS(TelaBase):
             "17. Parcerias em prol das metas"
         ]
 
-        self.criar_botoes()
+        self.criar_botoes(controle)
 
-    def criar_botoes(self):
+    def criar_botoes(self, controle):
         for i, nome in enumerate(self.ods_nomes):        
             linha = i % 9 + 1
             coluna = 1 if i < 9 else 2
-            botao = self.criar_botao(nome, lambda ods_num=i+1: self.selecionar_ods(ods_num))
+            botao = self.criar_botao(nome, lambda ods_num=i+1: self.selecionar_ods(ods_num, controle))
             botao.grid(row=linha, column=coluna, padx=20, pady=10)
 
-    def selecionar_ods(self, ODS):
+    def selecionar_ods(self, ODS, controle):
         print(f"ODS selecionado: {ODS}")
+        print(f"{controle.arquivo_selecionado}")
         Gerenciamento = GerenciamentoDados()
-        Gerenciamento.Criar_Graficos(ODS)
+        
+        Gerenciamento.Criar_Graficos(ODS, controle.arquivo_selecionado)
