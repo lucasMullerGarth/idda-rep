@@ -30,8 +30,7 @@ class TelaODS(TelaBase):
         self.criar_botoes()
 
     def criar_botoes(self):
-        for i, nome in enumerate(self.ods_nomes):
-            
+        for i, nome in enumerate(self.ods_nomes):        
             linha = i % 9 + 1
             coluna = 1 if i < 9 else 2
             botao = self.criar_botao(nome, lambda ods_num=i+1: self.selecionar_ods(ods_num))
