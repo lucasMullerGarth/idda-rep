@@ -8,7 +8,7 @@ from pathlib import Path
 
 class Bot_ODS():
      
-    def baixa_arquivos(self, IP, nome_do_arquivo):
+    def baixa_arquivos(self, Name):
         # Inicia o navegador
         navegador = webdriver.Chrome()
         navegador.get('https://www.cidadessustentaveis.org.br/paginas/idsc-br')
@@ -17,7 +17,7 @@ class Bot_ODS():
         wait = WebDriverWait(navegador, 20)
 
         # Abre o formulário de download
-        wait.until(EC.element_to_be_clickable((By.ID, "btn_agenda"))).click()
+        wait.until(EC.element_to_be_clickable((By.XPATH, Name))).click()
         wait.until(EC.visibility_of_element_located((By.ID, "cidade")))
 
         # Seleciona a cidade
@@ -44,9 +44,9 @@ class Bot_ODS():
         navegador.quit()
     
     
-    def verifica_arquivos(self, IP, nome_do_arquivo):
+    def verifica_arquivos(self, nome_do_arquivo):
         pasta = Path.home() / "Downloads"
-        arquivo = pasta / "Base_de_Dados_IDSC-BR_2024.xlsx"
+        arquivo = pasta / nome_do_arquivo
 
         if arquivo.exists():
             print("✅ Arquivo encontrado:", arquivo)
