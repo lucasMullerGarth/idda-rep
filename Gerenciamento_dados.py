@@ -82,8 +82,6 @@ class GerenciamentoDados():
 
         coluna_normalizados = normalizados.columns.tolist()
 
-        print(coluna_normalizados)
-
         tamanho_normalizados = len(normalizados)
         i=1
 
@@ -112,8 +110,9 @@ class GerenciamentoDados():
             plt.show()
             i+=1
         
-        with pd.ExcelWriter("DataFrame da ODS.xlsx") as writer:
-            ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_2024.xlsx", index=False)
+        #Fazer para disponibilizar Download
+        #with pd.ExcelWriter("DataFrame da ODS.xlsx") as writer:
+            #ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_2024.xlsx", index=False)
 
     @staticmethod
     def limpeza_dados(cidades_rs):
