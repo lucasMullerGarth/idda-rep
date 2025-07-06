@@ -40,7 +40,7 @@ class Bot_ODS():
         wait.until(EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='Confirmar']]"))).click()
 
         # Aguarda o download
-        time.sleep(10)
+        time.sleep(15)
         navegador.quit()
     
     

@@ -23,6 +23,7 @@ class Aplicacao(tk.Tk):
 
         self.mostrar_tela("TelaInicial")
 
+    #método para trocar o frame
     def mostrar_tela(self, nome):
         frame = self.telas[nome]
         frame.tkraise()

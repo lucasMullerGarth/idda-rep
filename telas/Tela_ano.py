@@ -23,6 +23,7 @@ class TelaAno(TelaBase):
         self.criar_botao("2023", lambda: self.bot_navegador(controle,"//button[text()='Baixar a base de dados do IDSC-BR 2023 ']","Base_de_Dados_IDSC-BR_2023.xlsx","2023")).pack(pady=30)
         self.criar_botao("2022", lambda: self.bot_navegador(controle,"//button[text()='Baixar a base de dados do IDSC-BR 2022 ']","Base_de_Dados_IDSC-BR_2022.xlsx","2022")).pack(pady=30)
     
+    #método para chamar o bot e verificar o arquivo, de acordo com a escolha do úsuario
     def bot_navegador(self, controle, nome, nome_do_arquivo, ano):
         
         controle.arquivo_selecionado = ano
