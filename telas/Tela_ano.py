@@ -35,12 +35,12 @@ class TelaAno(TelaBase):
             
         else:
             controle.mostrar_tela("TelaDeEspera")
-            self.after(100, lambda: self.executa_bot(Bot, controle, nome,))
+            self.after(100, lambda: self.executa_bot(Bot, controle,nome, nome_do_arquivo))
 
      
-    def executa_bot(self, Bot, controle, nome,):
+    def executa_bot(self, Bot, controle, nome, nome_do_arquivo):
         
-        Bot.baixa_arquivos(nome)
+        Bot.baixa_arquivos(nome, nome_do_arquivo)
         controle.mostrar_tela("TelaODS")
         
     
