@@ -1,7 +1,6 @@
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
-from pathlib import Path
 
 class GerenciamentoDados():
 
@@ -37,17 +36,7 @@ class GerenciamentoDados():
 
         ods_escolhida = ods_escolhida.sort_values(by=f'Goal {numero_ods} Score', ascending=False).reset_index(drop=True)
 
-        if not ods_escolhida.empty:
-            print(f"\nDados da ODS {numero_ods} em {ano}:")
-            print(ods_escolhida.head(10))
-            print(ods_escolhida.tail(10))
-            
-            santa_cruz = ods_escolhida[ods_escolhida['MUNICIPIO'] == 'Santa Cruz do Sul']
-            if not santa_cruz.empty:
-                print(f"\nDados da ODS {numero_ods} para Santa Cruz do Sul:")
-                print(santa_cruz)
-        else:
-            print(f"Não foram encontrados dados para a ODS {numero_ods}") 
+        santa_cruz = ods_escolhida[ods_escolhida['MUNICIPIO'] == 'Santa Cruz do Sul']
 
         ods_grafico = ods_escolhida.head(10)
         tail_grafico = ods_escolhida.tail(10)
@@ -108,9 +97,9 @@ class GerenciamentoDados():
             plt.show()
             i+=1
         
-        #Fazer para disponibilizar Download
-        #with pd.ExcelWriter("DataFrame da ODS.xlsx") as writer:
-            #ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_2024.xlsx", index=False)
+        with pd.ExcelWriter(f"DataFrame da ODS {numero_ods}.xlsx") as writer:
+            ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_{ano}.xlsx", index=False)
+            livro.to_excel(writer, sheet_name="Livro de Códigos", index=False)
 
     @staticmethod
     def Graficos_2024(arquivo, numero_ods, ano):
@@ -130,18 +119,8 @@ class GerenciamentoDados():
         ods_escolhida = GerenciamentoDados.filtrar_ods(cidades_rs, numero_ods)
 
         ods_escolhida = ods_escolhida.sort_values(by=f'Goal {numero_ods} Score', ascending=False).reset_index(drop=True)
-
-        if not ods_escolhida.empty:
-            print(f"\nDados da ODS {numero_ods}:")
-            print(ods_escolhida.head(10))
-            print(ods_escolhida.tail(10))
             
-            santa_cruz = ods_escolhida[ods_escolhida['MUNICIPIO'] == 'Santa Cruz do Sul']
-            if not santa_cruz.empty:
-                print(f"\nDados da ODS {numero_ods} para Santa Cruz do Sul:")
-                print(santa_cruz)
-        else:
-            print(f"Não foram encontrados dados para a ODS {numero_ods}") 
+        santa_cruz = ods_escolhida[ods_escolhida['MUNICIPIO'] == 'Santa Cruz do Sul']
 
         ods_grafico = ods_escolhida.head(10)
         tail_grafico = ods_escolhida.tail(10)
@@ -201,10 +180,10 @@ class GerenciamentoDados():
             plt.tight_layout()
             plt.show()
             i+=1
-        
-        #Fazer para disponibilizar Download
-        #with pd.ExcelWriter("DataFrame da ODS.xlsx") as writer:
-            #ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_2024.xlsx", index=False)
+
+        with pd.ExcelWriter(f"DataFrame da ODS {numero_ods}.xlsx") as writer:
+            ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_2024.xlsx", index=False)
+            livro.to_excel(writer, sheet_name="Livro de Códigos", index=False)
 
     @staticmethod
     def Criar_Graficos(numero_ods, ano):
