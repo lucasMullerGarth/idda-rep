@@ -38,8 +38,8 @@ class GerenciamentoDados():
 
         santa_cruz = ods_escolhida[ods_escolhida['MUNICIPIO'] == 'Santa Cruz do Sul']
 
-        ods_grafico = ods_escolhida.head(10)
-        tail_grafico = ods_escolhida.tail(10)
+        ods_grafico = ods_escolhida.head(20)
+        tail_grafico = ods_escolhida.tail(20)
         ods_grafico = pd.concat([ods_grafico, tail_grafico], ignore_index=True)
 
         existe = 'Santa Cruz do Sul' in ods_grafico.values
@@ -75,8 +75,8 @@ class GerenciamentoDados():
         while i < tamanho_normalizados:
             titulo = coluna_normalizados[i]
             normalizados = normalizados.sort_values(by=titulo, ascending=False)  
-            head_normalizados = normalizados.head(10)
-            tail_normalizados = normalizados.tail(10)
+            head_normalizados = normalizados.head(20)
+            tail_normalizados = normalizados.tail(20)
             normalizados_grafico = pd.concat([head_normalizados, tail_normalizados], ignore_index=True)
 
             santa_cruz_normalizados = normalizados[normalizados['MUNICIPIO'] == 'Santa Cruz do Sul']
@@ -105,9 +105,14 @@ class GerenciamentoDados():
     def Graficos_2024(arquivo, numero_ods, ano):
         df = pd.read_excel(arquivo, sheet_name='IDSC-BR 2024')
         livro = pd.read_excel(arquivo, sheet_name='Livro de Códigos')
+        
+        regiao_vales = ['Santa Cruz do Sul', 'São Sepé', 'Cachoeira do Sul', 'Boqueirão do Leão', 'Candelária', 'Encruzilhada do Sul', 'General Câmara', 'Gramado Xavier', 'Herveiras', 'Mato Leitão', 'Minas do Leão', 'Pantano Grande', 'Passo do Sobrado', 'Rio Pardo', 'Sinimbu', 'Vale do Sol', 'Vale Verde', 'Venâncio Aires', 'Vera Cruz', 'Anta Gorda', 'Arroio do Meio', 'Arvorezinha', 'Bom Retiro do Sul', 'Canudos do Vale', 'Capitão', 'Colinas', 'Coqueiro Baixo', 'Cruzeiro do Sul', 'Dois Lajeados', 'Doutor Ricardo', 'Encantado', 'Estrela', 'Fazenda Vilanova', 'Forquetinha', 'Ilópolis', 'Imigrante', 'Lajeado', 'Marques de Souza', 'Muçum', 'Nova Bréscia', 'Paverama', 'Poço das Antas', 'Pouso Novo', 'Progresso', 'Putinga', 'Relvado', 'Roca Sales', 'Santa Clara do Sul', 'Tabaí', 'Taquari', 'Teutônia', 'Travesseiro', 'Vespasiano Corrêa', 'Westfália']
 
-        cidades_rs = df.loc[df['SIGLA_UF'] == 'RS'].copy()
-        cidades_rs.reset_index(drop=True, inplace=True)
+        df['MUNICIPIO'] = df['MUNICIPIO'].str.strip()
+        cidades_rs = df[df['SIGLA_UF'] == 'RS'].reset_index(drop=True)
+        cidades_rs = cidades_rs[cidades_rs['MUNICIPIO'].isin(regiao_vales)].reset_index(drop=True)
+
+        print(cidades_rs)
 
         for i in range(1, 18):
             coluna_para_remover = f'ODS{i}_reg'
@@ -122,8 +127,8 @@ class GerenciamentoDados():
             
         santa_cruz = ods_escolhida[ods_escolhida['MUNICIPIO'] == 'Santa Cruz do Sul']
 
-        ods_grafico = ods_escolhida.head(10)
-        tail_grafico = ods_escolhida.tail(10)
+        ods_grafico = ods_escolhida.head(20)
+        tail_grafico = ods_escolhida.tail(20)
         ods_grafico = pd.concat([ods_grafico, tail_grafico], ignore_index=True)
 
         existe = 'Santa Cruz do Sul' in ods_grafico.values
@@ -159,8 +164,8 @@ class GerenciamentoDados():
         while i < tamanho_normalizados:
             titulo = coluna_normalizados[i]
             normalizados = normalizados.sort_values(by=titulo, ascending=False) 
-            head_normalizados = normalizados.head(10)
-            tail_normalizados = normalizados.tail(10)
+            head_normalizados = normalizados.head(20)
+            tail_normalizados = normalizados.tail(20)
 
             normalizados_grafico = pd.concat([head_normalizados, tail_normalizados], ignore_index=True)
             santa_cruz_normalizados = normalizados[normalizados['MUNICIPIO'] == 'Santa Cruz do Sul']
