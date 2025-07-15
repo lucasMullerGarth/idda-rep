@@ -112,8 +112,6 @@ class GerenciamentoDados():
         cidades_rs = df[df['SIGLA_UF'] == 'RS'].reset_index(drop=True)
         cidades_rs = cidades_rs[cidades_rs['MUNICIPIO'].isin(regiao_vales)].reset_index(drop=True)
 
-        print(cidades_rs)
-
         for i in range(1, 18):
             coluna_para_remover = f'ODS{i}_reg'
             if coluna_para_remover in cidades_rs.columns:
@@ -163,9 +161,10 @@ class GerenciamentoDados():
 
         while i < tamanho_normalizados:
             titulo = coluna_normalizados[i]
-            normalizados = normalizados.sort_values(by=titulo, ascending=False) 
-            head_normalizados = normalizados.head(20)
-            tail_normalizados = normalizados.tail(20)
+            normalizados_grafico = normalizados.sort_values(by=titulo, ascending=False) 
+            normalizados_grafico = normalizados_grafico.dropna(subset=[titulo])
+            head_normalizados = normalizados_grafico.head(20)
+            tail_normalizados = normalizados_grafico.tail(20)
 
             normalizados_grafico = pd.concat([head_normalizados, tail_normalizados], ignore_index=True)
             santa_cruz_normalizados = normalizados[normalizados['MUNICIPIO'] == 'Santa Cruz do Sul']
@@ -185,6 +184,11 @@ class GerenciamentoDados():
             plt.tight_layout()
             plt.show()
             i+=1
+
+
+        painel = ods_escolhida.filter(like='Painel').columns.tolist()
+
+        GerenciamentoDados.Graficos_painel(painel, ods_escolhida)
 
         with pd.ExcelWriter(f"DataFrame da ODS {numero_ods}.xlsx") as writer:
             ods_escolhida.to_excel(writer, sheet_name=f"ODS_{numero_ods}_IDSC-BR_2024.xlsx", index=False)
@@ -214,3 +218,14 @@ class GerenciamentoDados():
             df.rename(columns={colunas_antigas:colunas_novas}, inplace=True) 
             i+=1
         return df
+
+    @staticmethod
+    def Graficos_painel(painel, df):
+        i=0
+        while i < len(painel):
+            coluna_painel = painel[i]
+            painel_green = df[df[coluna_painel] == 'green']
+
+            if not painel_green.empty:
+                print(painel_green['MUNICIPIO'])
+            i+=1
